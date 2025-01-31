@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Header from "./componenets/Header";
-import About from "./componenets/About";
-import Credentials from "./componenets/Credentials";
-import Background from "./componenets/Background";
-import Resume from "./componenets/Resume";
+import Header from "./components/Header";
+import About from "./components/About";
+import Credentials from "./components/Credentials";
+import Background from "./components/Background";
+import Resume from "./components/Resume";
 
 
 export default function Home() {

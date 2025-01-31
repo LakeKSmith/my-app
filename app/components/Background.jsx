@@ -2,7 +2,7 @@
  
  const Background = () => {
    return (
-     <div id="jobs">
+     <div id='jobs'>
         Background
     </div>
    )
