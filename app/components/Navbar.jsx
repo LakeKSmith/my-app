@@ -1,90 +1,115 @@
-'use client';
-import React, {useState}  from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Image from 'next/image'
-import {assets} from '@/assets/assets'
+import {assets} from '../../assets/assets'
 import clsx from  'clsx'
 
-const Navbar = () =>{
-
-    const [hideMenu, showMenu] = useState("hidden");
-    const [showButton, hideButton] = useState("md:hidden");
-    const [smallProf, bigProf] = useState("h-48 w-48");
-    const [profLeft, profCenter] = useState("absolute left-0 top-0 pl-5 pt-5");
-    const [dontClose, close] = useState("hidden");
-    const [screen, dimScreen] = useState("hidden");
+const Navbar = ({sideMenu,inputRef}) =>{
 
 
-    
+    /* Opend and closes side menu */
+    const [hideMenu, showMenu] = useState(false);
     function displayMenu(boolean){
         if(boolean == true){
-            showMenu("");
-            hideButton("hidden");
-        }else{
-            showMenu("hidden");
-            hideButton("md:hidden");
-        }
-    }
-
-    function frontNCenter(boolean){
-        if(boolean == true){
-            bigProf("h-50 w-50");
-        }else{
-            bigProf("h-48 w-48");
+            showMenu(true);
+        }else{        
+            showMenu(false);
         }
     }
 
     return(
         //------------------navbar------------------------
         
-        <div  id='top'>
+        <div ref={inputRef} id="top" className=" top-0 h-screen w-full snap-start ">
             
             {/* Navbar */}
-            <div className="relative pb-300 h-100 w-full flex justify-center">
+
+            <div >
+            
                 
-                {/* Interactive Profile Picture */}
-                <button onClick={() => frontNCenter(true)} className={profLeft}>
-                    <button onClick={() => frontNCenter(false)} className={clsx(dontClose,"top-0 left-0")}>X</button>
-                    <Image  src={assets.Prof_pic} alt='' className={clsx('rounded-full',smallProf,'shadow-md')}/>
-                </button>
-                
+                {/*Profile Picture */}
+                <div   className="absolute w-2/3 h-full-10 overflow-hidden pl-10 bottom-10 top-10">
+                    <div  className="scale rounded-full shadow-md ">
+                        <Image  src={assets.Prof_pic} alt='' className=""/>
+                    </div>
+                </div>
+
                 {/* List of pages */}
-                <div className="hidden md:flex justify-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-gray-200 
-                                shadow-sm bg-opacity-50">
-                    <a className="hover:bg-gray-300 " href='#about'>About me</a>
-                    <a className="hover:bg-gray-300 " href='#resume'>Resume</a>
-                    <a className="hover:bg-gray-300 " href='#school'>Education</a>
-                    <a className="hover:bg-gray-300 " href='#jobs'>Profetional experince</a>
+                <div className="hidden md:block fixed top-0 right-0  w-40 h-160 shadow-md justify-stretch overflow-y-auto">
+                    <a  className={clsx("group flex w-full h-32",sideMenu[0] ? 'shadow-xl' : 'shadow hover:shadow-xl')} href='#top'>
+                        <div className={clsx(sideMenu[0] ? '' : 'hidden',"absolute group-hover:block bg-orange-400 w-2 h-32")}  ></div>
+                        <div className={clsx(sideMenu[0] ? 'text-orange-100' : 'text-gray-400 group-hover:text-orange-100',"grid-3 content-center h-full w-full")}>
+                            <div className={clsx(sideMenu[0] ? 'bg-orange-400' : 'group-hover:bg-orange-400 bg-orange-100',"rounded-full h-8 w-8  justify-self-center")}></div>
+                            <div className='justify-self-center'>Home</div>
+                        </div>
+                    </a>
+                    <a  className={clsx("group flex w-full h-32",sideMenu[1] ? 'shadow-xl' : 'shadow hover:shadow-xl')} href='#about'>
+                        <div className={clsx(sideMenu[1] ? '' : 'hidden',"absolute group-hover:block bg-orange-400 w-2 h-32")}  ></div>
+                        <div className={clsx(sideMenu[1] ? 'text-orange-100' : 'text-gray-400 group-hover:text-orange-100',"grid-3 content-center h-full w-full")}>
+                            <div className={clsx(sideMenu[1] ? 'bg-orange-400' : 'group-hover:bg-orange-400 bg-orange-100',"rounded-full h-8 w-8  justify-self-center")}></div>
+                            <div className='justify-self-center'>About Me</div>
+                        </div>
+                    </a>
+                    <a  className={clsx("group flex w-full h-32",sideMenu[2] ? 'shadow-xl' : 'shadow hover:shadow-xl')} href='#resume'>
+                        <div className={clsx(sideMenu[2] ? '' : 'hidden',"absolute group-hover:block bg-orange-400 w-2 h-32")}  ></div>
+                        <div className={clsx(sideMenu[2] ? 'text-orange-100' : 'text-gray-400 group-hover:text-orange-100'," grid-3 content-center h-full w-full")}>
+                            <div className={clsx(sideMenu[2] ? 'bg-orange-400' : 'group-hover:bg-orange-400 bg-orange-100',"rounded-full h-8 w-8  justify-self-center")}></div>
+                            <div className='justify-self-center'>Resume</div>
+                        </div>
+                    </a>
+                    {/* <a  className={clsx("group flex w-full h-32",sideMenu[3] ? 'shadow-xl' : 'shadow hover:shadow-xl')} href='#experience'>
+                        <div className={clsx(sideMenu[3] ? '' : 'hidden',"absolute group-hover:block bg-orange-400 w-2 h-32")}  ></div>
+                        <div className={clsx(sideMenu[3] ? '' : 'text-gray-400 group-hover:text-black',"grid-3 content-center h-full w-full")}>
+                            <div className={clsx(sideMenu[3] ? 'bg-orange-400' : 'group-hover:bg-orange-400 bg-orange-100',"rounded-full h-8 w-8  justify-self-center")}></div>
+                            <div className='justify-self-center'>Portfolio</div>
+                        </div>
+                    </a> */}
+                    <a  className={clsx("group flex w-full h-32",sideMenu[4] ? 'shadow-xl' : 'shadow hover:shadow-xl')} href='#contact'>
+                        <div className={clsx(sideMenu[4] ? '' : 'hidden',"absolute group-hover:block bg-orange-400 w-2 h-32")}  ></div>
+                        <div className={clsx(sideMenu[4] ? 'text-orange-100' : 'text-gray-400 group-hover:text-orange-100',"grid-3 content-center h-full w-full")}>
+                            <div className={clsx(sideMenu[4] ? 'bg-orange-400' : 'group-hover:bg-orange-400 bg-orange-100',"rounded-full h-8 w-8  justify-self-center")}></div>
+                            <div className='justify-self-center'>Contact Me</div>
+                        </div>
+                    </a>
+                   
                 </div>
                 
-                {/* Menu Button */}
-                <div className={clsx("flex ", showButton,"fixed right-0 top-0")}>
-                    <button id= "menuButton" onClick={() => displayMenu(true)}  className='gap-6 lg:gap-8 rounded-full px-12 py-3 bg-gray-200 shadow-sm bg-opacity-50'>
-                        menu Button
+                {/* MENU BUTTON */}
+                
+                <div className={clsx(hideMenu ? 'hidden' : '',"fixed right-0 top-0")}>
+                    <button id= "menuButton" onClick={() => displayMenu(true)}  className='md:hidden gap-6 lg:gap-8 rounded-full px-12 py-3 bg-gray-200 shadow-sm bg-opacity-50'>
+                        menu
                     </button>
                 </div>
 
             </div>
+           
+            {/* dims background for side menu*/}
+            <div className={clsx(hideMenu ? '' : 'hidden',"fixed bg-black opacity-50 top-0 h-screen w-full")}></div>
+
 
             {/* Hidden Side menu */}
-            <div id='sideMenu' className= {clsx(hideMenu,"fixed top-0 right-0 h-screen w-1/2 bg-gray-800 pb-50 bg-opacity-80")}>
+            <div id='sideMenu' className={clsx(hideMenu ? 'right-0' : '-right-1/2', ' lg:hidden fixed top-0 h-screen w-40 bg-gray-300 pb-50 bg-opacity-80 transition-all')}>
                 {/* close side menu */}
-                <button onClick={() => displayMenu(false)} className="top-0 right-0">
+                <button  onClick={() => displayMenu(false)} className={clsx(hideMenu ? 'right-0' : '-right-1/2',"-right-1/2 fixed top-0 transition-all")}>
                     X
                 </button>
-                <ul className='flex justify-center-collumn'>
-                    <a className="hover:bg-gray-700 " href='#about'>About me</a>
-                    <a className="hover:bg-gray-700 " href='#resume'>Resume</a>
-                    <a className="hover:bg-gray-700 " href='#school'>Education</a>
-                    <a className="hover:bg-gray-700 " href='#jobs'>Profetional experince</a>
-                </ul>
+                {/* list of pages */}
+                <div className='grid content-center'>
+                    <a onClick={() => displayMenu(false)} className="hover:bg-gray-700 " href='#top'>Home</a>
+                    <a onClick={() => displayMenu(false)} className="hover:bg-gray-700 " href='#about'>About me</a>
+                    <a onClick={() => displayMenu(false)} className="hover:bg-gray-700 " href='#resume'>Resume</a>
+                    <a onClick={() => displayMenu(false)} className="hover:bg-gray-700 " href='#experience'>Education</a>
+                    <a onClick={() => displayMenu(false)} className="hover:bg-gray-700 " href='#contact'>Profetional experince</a>
+                </div>
             </div>
 
-            {/* Info section */}
-            <div className="item-center gap-6 lg:gap-8 rounded-xl m-2 px-12 py-3 h-screen p-2 bg-gray-600 flex flex-wrap content-center">
+            <div className="item-center gap-6 lg:gap-8 rounded-xl m-2 px-12 py-3 h-screen p-2 flex flex-wrap content-center">
+            </div>
+
             
-            </div>
-
+        
         </div>
+        
     )
 };
 
